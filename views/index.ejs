@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>kslt.in Url Shortener</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="">
+    <style type="text/css">
+        .banner {
+            background: #fff;
+            font-family: Lato, sans-serif;
+        }
+
+        .navbar-nav-primary {
+            text-transform: uppercase;
+        }
+
+        .navbar-form-search {
+            position: relative;
+        }
+
+        .navbar-form-search .form-control {
+            width: 250px;
+        }
+
+        .navbar-form-search .btn {
+            border: 0;
+            background: transparent;
+            font-size: 18px;
+        }
+
+        .navbar-form-search .btn:active,
+        .navbar-form-search .btn:hover,
+        .navbar-form-search .btn:focus {
+            color: #000;
+            outline: none;
+            box-shadow: none;
+        }
+
+        .navbar-form-search .search-form-container {
+            text-align: right;
+            position: absolute;
+            width: 300px;
+            overflow: hidden;
+            background: #fff;
+            right: 60px;
+            top: 0;
+            z-index: 9;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .navbar-form-search .search-form-container.hdn {
+            width: 0;
+        }
+
+        .navbar-form-search .search-form-container .search-input-group {
+            width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-default banner">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">KSLT.IN</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                    <form class="navbar-form navbar-right navbar-form-search" role="search">
+                        <div class="search-form-container hdn" id="search-input-container">
+                            <div class="search-input-group">
+                                <button type="button" class="btn btn-default" id="hide-search-input-container"><span
+                                        class="glyphicon glyphicon-option-horizontal"
+                                        aria-hidden="true"></span></button>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Search for...">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <button type="submit" class="btn btn-default" id="search-button"><span
+                                class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right navbar-nav-primary">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/bundle">Bundle</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <h1>Url Shortener</h1>
+        <form action="/shortUrls" method="POST" class="my-4 form-inline">
+            <label for="fullUrl" class="sr-only">Url</label>
+            <input type="url" placeholder="Url" name="fullUrl" id="fullUrl" class="form-control" />
+            <button type="submit" class="btn btn-success">Shrink</button>
+        </form>
+        <table class="table table-stripped table-responsive">
+            <thead>
+                <tr>
+                    <th>Full Url</th>
+                    <th>Short Url</th>
+                    <th>Clicks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% shortUrls.forEach(shortUrl => { %>
+                <tr>
+                    <td><a href="<%= shortUrl.full %>"><%= shortUrl.full %></a></td>
+                    <td><a href="<%= shortUrl.short %>"><%= shortUrl.short %></a><i
+                            class="copyUrl glyphicon glyphicon-duplicate" style="cursor: pointer;" data-url="<%= shortUrl.short %>"></i></td>
+                    <td><%= shortUrl.clicks %></td>
+                    <td><a href="/remove/<%= shortUrl._id %>"><i
+                                class="text-danger glyphicon glyphicon-minus-sign"></i></a></td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
+    </script>
+    <script src="" async defer></script>
+    <script>
+        function fallbackCopyTextToClipboard(text) {
+            var textArea = document.createElement("textarea");
+            textArea.value = text;
+
+            // Avoid scrolling to bottom
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                var successful = document.execCommand('copy');
+                var msg = successful ? 'successful' : 'unsuccessful';
+                console.log('Fallback: Copying text command was ' + msg);
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+
+            document.body.removeChild(textArea);
+        }
+
+        function copyTextToClipboard(text) {
+            if (!navigator.clipboard) {
+                fallbackCopyTextToClipboard(text);
+                return;
+            }
+            navigator.clipboard.writeText(text).then(function () {
+                console.log('Async: Copying to clipboard was successful!');
+            }, function (err) {
+                console.error('Async: Could not copy text: ', err);
+            });
+        }
+        (function ($) {
+            $(".copyUrl").click(function () {
+                var url = $(this).data("url");
+                copyTextToClipboard(location.origin + "/" + url);
+                alert("Copied Url !!!")
+            })
+            $('#search-button').on('click', function (e) {
+                if ($('#search-input-container').hasClass('hdn')) {
+                    e.preventDefault();
+                    $('#search-input-container').removeClass('hdn')
+                    return false;
+                }
+            });
+
+            $('#hide-search-input-container').on('click', function (e) {
+                e.preventDefault();
+                $('#search-input-container').addClass('hdn')
+                return false;
+            });
+        })(jQuery);
+    </script>
+</body>
+
+</html>
