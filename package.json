@@ -4,6 +4,7 @@
   "description": "kslt.in Url Shortener",
   "main": "app.js",
   "scripts": {
+    "start":"node app.js",
     "devStart": "nodemon app.js"
   },
   "author": "muratkoc",
