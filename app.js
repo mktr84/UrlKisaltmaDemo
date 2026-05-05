@@ -5,7 +5,7 @@ const cookieParser = require("cookie-parser")
 const uuid = require('uuid');
 const http = require('http');
 
-const MONGO_URL = "mongodb+srv://ksltin:LfZ08PMiSs7tVdoc@ksltin.puquh.azure.mongodb.net/ksltin?retryWrites=true&w=majority"
+const MONGO_URL = "mongodb+srv://[SERVERURL]?retryWrites=true&w=majority"
 
 
 const app = express()
